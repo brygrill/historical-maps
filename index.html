@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>MapApp</title>
+    
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:400' type='text/css'>
+
+    <link rel="stylesheet" href="assets/stylesheets/mapapp.css">
+  </head>
+
+  <body>
+    <!--Nav Menu-->
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+              <i class="fa fa-bars fa-lg white"></i>
+          </button>
+          <div>
+            <a class="navbar-brand" href="#">Lancaster County Warrantee Map</a>
+          </div>
+          
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+
+          <form class="navbar-form form-inline navbar-right" role="search">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i id="search-icon" class="fa fa-search fa-lg"></i></div>
+                <input type="text" id="muni-search" class="form-control typeahead" placeholder="Search for Municiaplity">
+              </div>
+            </div>
+          </form>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a id="find-me" href="#"><i class="fa fa-location-arrow fa-lg fa-fw"></i>&nbsp;Zoom To Location</a></li>
+            <li><a id="home" href="#"><i class="fa fa-home fa-lg fa-fw"></i>&nbsp;Zoom To County</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-flag fa-lg fa-fw"></i>&nbsp;Map Info</a>
+              <ul class="dropdown-menu">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="#">Disclaimer</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="http://co.lancaster.pa.us/143/GIS-Division">Lancaster County GIS</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <!--Gear Spinner and User Click Through-->
+    <div id="back-cover">
+      <div id="cog-icon"><i class="fa fa-circle-o-notch fa-spin fa-3x"></i></div>
+      <div id="click-thru">
+        <img class="center-block gis-logo" src="assets/images/GIS_SM_logo_NoDept.png"></img>
+        <h3 class="dark-gray text-center">Lancaster County Historic Maps</h3>
+        <p class="dark-gray text-center">This application displays historic waranttee maps and is for informational purposes only. Please contact Lancaster County IT or Archives with questions or comments.</p>
+        <button id="user-accepted" class="btn btn-lg btn-success center-block">OK</button>
+      </div>
+    </div>
+    
+    
+    <!--Full Screen Map-->
+    <div id="map"></div>
+    
+    <!--Controls at bottom of page-->
+    <div class="navbar-fixed-bottom footer-controls">
+      <div class="container-fluid">
+        <div class="row">
+        <div class="col-xs-3 col-md-3 footer-col">
+          <div id="latlng">
+            <button class="btn-hide btn-latlng">
+              <span id="toggle-latlng" class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x attr-cir"></i>
+                <i class="fa fa-map-pin fa-stack-1x fa-inverse"></i>
+              </span>
+            </button>
+            <div id="mousemove"></div>
+          </div>
+        </div>
+        <div id="attrb-col" class="col-xs-9 col-md-9 footer-col">
+          <div id="attribute">
+            <span class="custom-attribute"></span>
+            <button class="btn-hide btn-fix">
+              <span id="toggle-attrb" class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x attr-cir"></i>
+                <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    
+    <!--Modal for IDing features with and without image-->
+    <div class="modal fade" id="muniModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn btn-default pull-right" data-dismiss="modal"><i class="fa fa-lg fa-close"></i></button>
+            <h3 class="modal-title" id="feature-title"></h3>
+          </div>
+          <div class="modal-body">
+            <div id="feature-info"></div>
+            <div id="full-img-btn"></div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal fade" id="muniNoImgModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn btn-default pull-right" data-dismiss="modal"><i class="fa fa-lg fa-close"></i></button>
+            <h3 class="modal-title" id="feature-title-noimg"></h3>
+          </div>
+          <div class="modal-body">
+            <div id="feature-info-noimg"></div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    
+    <!--Javascript resources-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <script src="assets/javascript/mapservice-esri-leaflet.min.js"></script>
+    <script src="assets/javascript/controls.js"></script>
+    <script src="assets/javascript/mapapp.js"></script>
+    
+  </body>
+</html>
+

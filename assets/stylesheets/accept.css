@@ -1,0 +1,23 @@
+#back-cover{
+    background: rgba(191, 191, 191, 1);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#cog-icon{
+    color: #222;
+    z-index: 1500;
+}
+#click-thru{
+    display: none;
+}
+.gis-logo{
+    max-height: 75px;
+}
+
