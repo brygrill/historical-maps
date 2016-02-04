@@ -1,1 +1,1 @@
-Map built with Leaflet, Bootstrap, and jQuery. Inspired by: https://github.com/bmcbride/bootleaf
+Map built with Leaflet and Bootstrap. Inspired by: https://github.com/bmcbride/bootleaf
