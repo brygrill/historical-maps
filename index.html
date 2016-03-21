@@ -6,14 +6,16 @@
     <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>MapApp</title>
+    <title>Historic Maps</title>
+    
+    <!--Favicon-->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:400' type='text/css'>
-
     <link rel="stylesheet" href="assets/stylesheets/mapapp.css">
   </head>
 
@@ -61,12 +63,11 @@
     
     <!--Gear Spinner and User Click Through-->
     <div id="back-cover">
-      <div id="cog-icon"><i class="fa fa-circle-o-notch fa-spin fa-3x"></i></div>
+      <div id="cog-icon"><i class="fa fa-spinner fa-pulse"></i></div>
       <div id="click-thru">
-        <img class="center-block gis-logo" src="assets/images/GIS_SM_logo_NoDept.png"></img>
         <h3 class="dark-gray text-center">Lancaster County Historic Maps</h3>
         <p class="dark-gray text-center">This application displays historic waranttee maps and is for informational purposes only. Please contact Lancaster County IT or Archives with questions or comments.</p>
-        <button id="user-accepted" class="btn btn-lg btn-success center-block">OK</button>
+        <button id="user-accepted" class="btn btn-lg got-it-btn center-block">GOT IT!</button>
       </div>
     </div>
     
