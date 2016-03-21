@@ -120,14 +120,13 @@ var map = L.map("map", {
   maxBounds: bounds,
   maxZoom: 19,
   minZoom: 10,
-  layers: [CartoDB_Positron],
+  layers: [MapBox],
   zoomControl: false,
   attributionControl: false
 });
 
 /*Set baselayer and overaly object for toggling*/
 var baseMaps = {
-    "Simple": CartoDB_Positron,
     "Streets": MapBox,
     "Aerial": MapBox_Aerial
 };

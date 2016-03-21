@@ -5,7 +5,7 @@ $(document).ready(function(){
     $('#cog-icon').fadeOut("slow", function(){
       $('#click-thru').fadeIn("slow");
     });
-  }, 1500);
+  }, 2000);
 });
 
 $('#user-accepted').click(function(){
